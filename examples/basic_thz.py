@@ -10,7 +10,7 @@ Data acquired on a Menlo TeraSmart by the Terahertz Applications Group
 at Cambridge University.
 """
 
-from thzpy import dotthz
+import dotthz
 from thzpy.timedomain import common_window
 from thzpy.transferfunctions import (uniform_slab,
                                      binary_mixture)
