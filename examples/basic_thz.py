@@ -10,21 +10,21 @@ Data acquired on a Menlo TeraSmart by the Terahertz Applications Group
 at Cambridge University.
 """
 
-from thzpy import dotthz
+import dotthz
 from thzpy.timedomain import common_window
 from thzpy.transferfunctions import (uniform_slab,
                                      binary_mixture)
 from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
-
+from thzpy import dotthz
 
 #############
 # Load Data #
 #############
 
 root = Path(__file__).parent
-path = root.joinpath(r"example_data\Lactose.thz")
+path = root.joinpath("example_data", "Lactose.thz")  # OS-independent joining
 
 with dotthz.DotthzFile(path, 'r') as file:
     # Get the first measurement in the file.
@@ -40,7 +40,6 @@ with dotthz.DotthzFile(path, 'r') as file:
     metadata = measurement.meta_data.md
     sample_thickness = metadata["Sample Thickness (mm)"]
     reference_thickness = metadata["Reference Thickness (mm)"]
-
 
 ###################
 # Data Processing #

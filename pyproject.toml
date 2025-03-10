@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["thzpy"]
+
+[project]
+name = "thzpy"
+version = "0.0.2"
+authors = [
+    { name = "Jasper Ward-Berry", email = "jnw35@cam.ac.uk" },
+]
+description = "Data proccessing for THz-TDS. A scientific computing package for the processing of terahertz time-domain spectroscopy data. Includes modules for time-domain, transfer functions, frequency-domain, and data formatting."
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Research, Industry",
+    "Programming Language :: Python :: 3",
+    "Operating System :: Microsoft :: Windows",
+]
+dependencies = [
+    "numpy",
+    "pydotthz>=0.3.1"
+]
+[project.urls]
+"Homepage" = "https://github.com/dotTHzTAG/thzpy"
+"Bug Tracker" = "https://github.com/dotTHzTAG/thzpy/issues"

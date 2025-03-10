@@ -21,8 +21,8 @@ import numpy as np
 #############
 
 root = Path(__file__).parent
-path_reference = root.joinpath(r"example_data\ptfe.csv")
-path_sample = root.joinpath(r"example_data\lactose.csv")
+path_reference = root.joinpath("example_data", "ptfe.csv")
+path_sample = root.joinpath("example_data", "lactose.csv")
 
 # Read data from files as floats.
 with open(path_reference, 'r', newline='') as csvfile:
@@ -45,7 +45,6 @@ with open(path_sample, 'r', newline='') as csvfile:
         amp.append(float(col[1]))
     sample = [amp, time]
 
-
 ###################
 # Data Processing #
 ###################
@@ -64,7 +63,6 @@ lactose = binary_mixture(sample_thickness, reference_thickness,
                          upsampling=3, min_frequency=0.2, max_frequency=3,
                          all_optical_constants=True,
                          n_ref=1.43)
-
 
 ####################
 # Plotting Figures #
