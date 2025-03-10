@@ -17,7 +17,7 @@ from thzpy.transferfunctions import (uniform_slab,
 from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
-import dotthz
+from thzpy import dotthz
 
 #############
 # Load Data #

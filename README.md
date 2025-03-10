@@ -14,10 +14,9 @@ If you encounter any bugs or there are any specific features you would like to s
 - Windowing and filtering.
 - Extraction of optical constants.
 - Spectral feature extraction. (UPCOMING)
+- Support of `dotTHz` files (see `examples/basic_thz.py` for a possible application)
 
 ## Usage
-
-For support of `dotTHz` files, please install `pydotthz` (see `examples/basic_thz.py` for a possible application).
 
 The package can be installed via pip:
 
