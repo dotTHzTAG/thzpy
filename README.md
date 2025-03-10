@@ -17,7 +17,7 @@ If you encounter any bugs or there are any specific features you would like to s
 
 ## Usage
 
-For support of `dotTHz` files, please install `pydotthz` (see `examples/basic_thz` for a possible application).
+For support of `dotTHz` files, please install `pydotthz` (see `examples/basic_thz.py` for a possible application).
 
 The package can be installed via pip:
 
