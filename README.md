@@ -2,11 +2,11 @@
 
 THzPy is a scientific computing library for processing terahertz time-domain spectroscopy data.
 
-The aim of this library is simplify and speed up the analyisis of THz-TDS data, as well as promote the standardisation
+The aim of this library is simplify and speed up the analysis of THz-TDS data, as well as promote the standardisation
 of processing methods between research groups and industry.
 
-Developement of this package is ongoing, we are in the process of adding features and support for a wider range of
-experimnetal setups and processes.
+Development of this package is ongoing, we are in the process of adding features and support for a wider range of
+experimental setups and processes.
 If you encounter any bugs or there are any specific features you would like to see added please get in touch.
 
 ## Features
@@ -42,7 +42,7 @@ buffer = uniform_slab(reference_thickness,
                       all_optical_constants=True)
 ```             
 
-Please see the examples folder for full demonstations of how to use the package.
+Please see the examples folder for full demonstrations of how to use the package.
 
 ## Documentation
 
