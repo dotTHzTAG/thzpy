@@ -1,0 +1,55 @@
+name: Publish New Releases to PyPI
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  build-release:
+    name: Builds package release
+    runs-on: ubuntu-latest
+      
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install setuptools wheel
+          pip install build
+
+      - name: Build package
+        run: |
+          python -m build
+
+  pypi-publish:
+    runs-on: ubuntu-latest
+    
+    needs:
+      - build-release
+    
+    permissions:
+      id-token: write
+
+    environment:
+      name: release
+      url: https://pypi.org/project/thzpy/${{ github.event.release.name }}
+
+    steps:
+      - name: Retrieve release distributions
+        uses: actions/download-artifact@v4
+        with:
+          name: release-dists
+          path: dist/
+
+      - name: Publish release distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/
