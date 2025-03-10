@@ -21,7 +21,6 @@ classifiers = [
     "Operating System :: Microsoft :: Windows",
 ]
 dependencies = [
-    "pydotthz",
     "numpy",
 ]
 [project.urls]

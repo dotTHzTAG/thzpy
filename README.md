@@ -1,11 +1,12 @@
-
 # THzPy
 
 THzPy is a scientific computing library for processing terahertz time-domain spectroscopy data.
 
-The aim of this library is simplify and speed up the analyisis of THz-TDS data, as well as promote the standardisation of processing methods between research groups and industry.
+The aim of this library is simplify and speed up the analyisis of THz-TDS data, as well as promote the standardisation
+of processing methods between research groups and industry.
 
-Developement of this package is ongoing, we are in the process of adding features and support for a wider range of experimnetal setups and processes.
+Developement of this package is ongoing, we are in the process of adding features and support for a wider range of
+experimnetal setups and processes.
 If you encounter any bugs or there are any specific features you would like to see added please get in touch.
 
 ## Features
@@ -13,16 +14,19 @@ If you encounter any bugs or there are any specific features you would like to s
 - Windowing and filtering.
 - Extraction of optical constants.
 - Spectral feature extraction. (UPCOMING)
-- Support for the DotThz file format.
 
 ## Usage
 
+For support of `dotTHz` files, please install `pydotthz` (see `examples/basic_thz` for a possible application).
+
 The package can be installed via pip:
+
 ```shell
 pip install thzpy
 ```
 
 The package then presents various functions to use like so:
+
 ```python
 from thzpy.timedomain import common_window
 from thzpy.transferfunctions import uniform_slab
@@ -37,12 +41,12 @@ buffer = uniform_slab(reference_thickness,
                       upsampling=3, min_frequency=0.2, max_frequency=3,
                       all_optical_constants=True)
 ```             
+
 Please see the examples folder for full demonstations of how to use the package.
 
 ## Documentation
 
 [GitHub](https://github.com/dotTHzTAG/thzpy)
-
 
 ## Authors
 
@@ -50,11 +54,9 @@ Please see the examples folder for full demonstations of how to use the package.
 - [@Hacknus](https://github.com/hacknus) - .thz file handling
 - [@dotTHzTAG](https://www.github.com/dotTHzTAG) - various contributions
 
-
 ## Feedback
 
 If you have any feedback, please reach out to us at jnw35@cam.ac.uk
-
 
 ## License
 
