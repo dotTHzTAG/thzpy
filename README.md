@@ -50,7 +50,7 @@ Please see the examples folder for full demonstrations of how to use the package
 ## Authors
 
 - [@JasperWB](https://www.github.com/JasperWB) - primary development
-- [@Hacknus](https://github.com/hacknus) - .thz file handling
+- [@hacknus](https://github.com/hacknus) - .thz file handling
 - [@dotTHzTAG](https://www.github.com/dotTHzTAG) - various contributions
 
 ## Feedback
