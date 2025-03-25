@@ -7,7 +7,7 @@ packages = ["thzpy", "thzpy.timedomain", "thzpy.transferfunctions", "thzpy.frequ
 
 [project]
 name = "thzpy"
-version = "0.0.2"
+version = "0.0.3"
 authors = [
     { name = "Jasper Ward-Berry", email = "jnw35@cam.ac.uk" },
 ]
