@@ -1,3 +1,5 @@
 build
 dist
 thzpy.egg-info
+*.pyc
+*.pyo
