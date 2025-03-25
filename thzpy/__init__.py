@@ -1,4 +1,9 @@
 from . import timedomain
 from . import transferfunctions
 from . import frequencydomain
-import dotthz
+from . import dotthz
+
+__all__ = [timedomain,
+           transferfunctions,
+           frequencydomain,
+           dotthz]
