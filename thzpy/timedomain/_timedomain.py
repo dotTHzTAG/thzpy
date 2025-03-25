@@ -10,7 +10,8 @@ import numpy as np
 import warnings
 from .. import _unitchecks
 
-def _format_waveform(waveform, time_unit):
+
+def _format_waveform(waveform, time_unit="ps"):
     # Accepts valid waveforms with varying structure
     # and converts them to a standard format.
 
