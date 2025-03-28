@@ -22,7 +22,7 @@ classifiers = [
 ]
 dependencies = [
     "numpy",
-    "pydotthz>=0.3.1"
+    "pydotthz>=0.4.0"
 ]
 [project.urls]
 "Homepage" = "https://github.com/dotTHzTAG/thzpy"

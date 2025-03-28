@@ -20,9 +20,9 @@ dotTHz
 
 """
 
-from dotthz import (DotthzFile,
-                    DotthzMeasurement,
-                    DotthzMetaData)
+from pydotthz import (DotthzFile,
+                      DotthzMeasurement,
+                      DotthzMetaData)
 
 __all__ = [DotthzFile,
            DotthzMeasurement,
