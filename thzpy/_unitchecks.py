@@ -15,6 +15,8 @@ def _check_thickness(thickness, unit):
             thickness *= 1e-3
         case 'cm':
             thickness *= 1e-2
+        case 'm':
+            pass
         case _:
             raise ValueError("Invalid thickness unit.")
 
@@ -36,6 +38,8 @@ def _check_time(time, unit):
             time *= 1e6
         case 'ms':
             time *= 1e9
+        case 's':
+            time *= 1e12
         case _:
             raise ValueError("Invalid time unit.")
 
@@ -48,7 +52,7 @@ def _check_frequency(frequency, unit):
 
     match unit:
         case 'thz':
-            frequency = frequency
+            pass
         case 'ghz':
             frequency *= 1e-3
         case 'mhz':
