@@ -10,6 +10,7 @@ Data acquired on a Menlo TeraSmart by the Terahertz Applications Group
 at Cambridge University.
 """
 
+from thzpy.dotthz import DotthzFile
 from thzpy.timedomain import common_window
 from thzpy.transferfunctions import (uniform_slab,
                                      binary_mixture)
@@ -25,7 +26,7 @@ from thzpy import dotthz
 root = Path(__file__).parent
 path = root.joinpath("example_data", "Lactose.thz")  # OS-independent joining
 
-with dotthz.DotthzFile(path, 'r') as file:
+with DotthzFile(path, 'r') as file:
     # Get the first measurement in the file.
     names = file.get_measurement_names()
     measurement = file.get_measurement(names[0])

@@ -113,8 +113,8 @@ def n_effective(sample, ref, thickness,
     """
 
     # Reformat waveforms.
-    ref = _format_waveform(ref)
-    sample = _format_waveform(sample)
+    ref = _format_waveform(ref, time_unit)
+    sample = _format_waveform(sample, time_unit)
 
     # Calculate the phase shift between reference and sample.
     ref_peak_time = _primary_peak(ref)[0]

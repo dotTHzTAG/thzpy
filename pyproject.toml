@@ -3,11 +3,11 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["thzpy"]
+packages = ["thzpy", "thzpy.timedomain", "thzpy.transferfunctions", "thzpy.frequencydomain", "thzpy.dotthz"]
 
 [project]
 name = "thzpy"
-version = "0.0.2"
+version = "0.0.4"
 authors = [
     { name = "Jasper Ward-Berry", email = "jnw35@cam.ac.uk" },
 ]
@@ -16,13 +16,13 @@ readme = "README.md"
 requires-python = ">=3.7"
 classifiers = [
     "Development Status :: 3 - Alpha",
-    "Intended Audience :: Research, Industry",
+    "Intended Audience :: Science/Research",
     "Programming Language :: Python :: 3",
     "Operating System :: Microsoft :: Windows",
 ]
 dependencies = [
     "numpy",
-    "pydotthz>=0.3.1"
+    "pydotthz>=0.4.0"
 ]
 [project.urls]
 "Homepage" = "https://github.com/dotTHzTAG/thzpy"
