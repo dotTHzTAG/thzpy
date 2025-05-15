@@ -16,7 +16,7 @@ from thzpy.transferfunctions import (uniform_slab,
 from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
-from thzpy import dotthz
+from thzpy import pydotthz
 
 #############
 # Load Data #
@@ -25,18 +25,20 @@ from thzpy import dotthz
 root = Path(__file__).parent
 path = root.joinpath("example_data", "Lactose.thz")  # OS-independent joining
 
-with dotthz.DotthzFile(path, 'r') as file:
+with pydotthz.DotthzFile(path, 'r') as file:
     # Get the first measurement in the file.
     names = file.get_measurement_names()
-    measurement = file.get_measurement(names[0])
+    measurement = file[names[0]]
 
     # Extract the sample and reference datasets.
-    sample = measurement.datasets["Sample"]
-    reference = measurement.datasets["Reference"]
-    baseline = measurement.datasets["Baseline"]
+    # if the computation is done outside of the file context, we need to copy the data into memory using `np.array()`
+    # otherwise the pointer to the file only lives inside this context - or in other words: as long as the file is opened
+    sample = np.array(measurement.datasets["Sample"])
+    reference = np.array(measurement.datasets["Reference"])
+    baseline = np.array(measurement.datasets["Baseline"])
 
     # Get the thickness metadata.
-    metadata = measurement.meta_data.md
+    metadata = measurement.meta_data
     sample_thickness = metadata["Sample Thickness (mm)"]
     reference_thickness = metadata["Reference Thickness (mm)"]
 
