@@ -173,7 +173,7 @@ def window(waveform, half_width, win_func="hanning", time_unit="ps"):
     n = round(half_width/dt)
 
     # Apply the window function.
-    field = _window(field, peak_index, 2*n, win_func=win_func)
+    field = _window(field, peak_index, 2*n, time=time, win_func=win_func)
 
     # Regularise the time axis.
     time = dt*np.arange(-n, n) + time[peak_index]
