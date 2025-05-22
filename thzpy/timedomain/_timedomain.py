@@ -151,7 +151,6 @@ def _window(ds, centre, n, win_func, time=None, adapted_blackman_params=None):
                     b = blackman_func(b_time + b_time[-1] - b_time[0] - b_time[0],
                                       2 * (b_time[-1] - b_time[0]))
                     window[end_region] = b
-            print(windowed_ds)
             return window * windowed_ds
         else:
             raise ValueError("Time array length must match dataset length")
