@@ -184,9 +184,11 @@ def window(waveform, half_width, start=None, end=None,
     # Apply the window function.
     if win_func == "adapted_blackman":
         if start is None:
+            start = 1.0
             warn("The start parameter is required for asymmetric window"
                  + " functions. A default of 1ps will be used.")
         if end is None:
+            end = 7.0
             warn("The start parameter is required for asymmetric window"
                  + " functions. A default of 7ps will be used.")
         field = _adapted_blackman_window(field, time, peak_index,
