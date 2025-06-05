@@ -5,12 +5,14 @@ exposed here via public functions.
 """
 
 import numpy as np
+from warnings import warn
 from .. import _unitchecks
 from ._timedomain import (_primary_peak,
                           _format_waveform,
                           _timebase,
                           _acq_freq,
-                          _window)
+                          _symmetric_window,
+                          _adapted_blackman_window)
 
 
 def timebase(waveform, time_unit="ps"):
@@ -135,7 +137,8 @@ def n_effective(sample, ref, thickness,
     return n_effective
 
 
-def window(waveform, half_width, win_func="hanning", time_unit="ps"):
+def window(waveform, half_width, start=None, end=None,
+           win_func="hanning", time_unit="ps"):
     """Applies a window function to a waveform.
 
     Parameters
@@ -144,12 +147,18 @@ def window(waveform, half_width, win_func="hanning", time_unit="ps"):
         The waveform to be windowed. Should take the form of a 2-d array
         containing field amplitude and time data.
     half_width : float
-        The half width of the window
+        The half width of the window for symmetric window functions
         (i.e how far it should extend each side of the peak).
+    start : float, optional
+        The extent of the pre-peak portion of the asymmetric window function.
+    end : float, optional
+        The extent of the post-peak portion of the asymmetric window function.
     win_func : str, optional
         The window function to be applied.
-        The following wavefunctions are implemented:
+        The following symmetric wavefunctions are implemented:
         boxcar, bartlett, blackman, hamming, hanning.
+        the following asymmetric wavefunctions are implemented:
+        adapted_blackman.
         Default is "hanning".
     time_unit : str, optional
         The unit of the time values.
@@ -173,7 +182,17 @@ def window(waveform, half_width, win_func="hanning", time_unit="ps"):
     n = round(half_width/dt)
 
     # Apply the window function.
-    field = _window(field, peak_index, 2*n, time=time, win_func=win_func)
+    if win_func == "adapted_blackman":
+        if start is None:
+            warn("The start parameter is required for asymmetric window"
+                 + " functions. A default of 1ps will be used.")
+        if end is None:
+            warn("The start parameter is required for asymmetric window"
+                 + " functions. A default of 7ps will be used.")
+        field = _adapted_blackman_window(field, time, peak_index,
+                                         2*n, start, end)
+    else:
+        field = _symmetric_window(field, peak_index, 2*n, win_func=win_func)
 
     # Regularise the time axis.
     time = dt*np.arange(-n, n) + time[peak_index]
@@ -181,7 +200,8 @@ def window(waveform, half_width, win_func="hanning", time_unit="ps"):
     return np.array([field, time])
 
 
-def common_window(waveforms, half_width, win_func="hanning", time_unit="ps"):
+def common_window(waveforms, half_width, start=None, end=None,
+                  win_func="hanning", time_unit="ps"):
     """Applies the same window function to a set of waveforms.
     Padding is automatically applied to preserve the phase shift
     between waveforms and waveforms are re-interpolated on to a
@@ -195,10 +215,16 @@ def common_window(waveforms, half_width, win_func="hanning", time_unit="ps"):
     half_width : float
         The half width of the window
         (i.e how far it should extend each side of the peak).
+    start : float, optional
+        The extent of the pre-peak portion of the asymmetric window function.
+    end : float, optional
+        The extent of the post-peak portion of the asymmetric window function.
     win_func : str, optional
         The window function to be applied.
         The following wavefunctions are implemented:
         boxcar, bartlett, blackman, hamming, hanning.
+        the following asymmetric wavefunctions are implemented:
+        adapted_blackman.
         Default is "hanning".
     time_unit : str, optional
         The unit of the time values.
@@ -232,7 +258,10 @@ def common_window(waveforms, half_width, win_func="hanning", time_unit="ps"):
     for waveform in waveforms:
         windowed_waveforms.append(window(waveform,
                                          common_half_width,
-                                         win_func=win_func))
+                                         start,
+                                         end,
+                                         win_func,
+                                         time_unit))
 
     # Get sample waveform index.
     # Interpolation and padding will be done relative to the sample.
