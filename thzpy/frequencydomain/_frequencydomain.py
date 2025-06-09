@@ -9,8 +9,7 @@ import numpy as np
 
 def _n_complex(n, a, f):
     k = _extinction_coefficient(a, f)
-    return n - 1j*k
-
+    return n + 1j*k 
 
 def _extinction_coefficient(a, f):
     w = 2*np.pi*f
@@ -32,8 +31,13 @@ def _invert_dielectric_constant(e_complex):
 def _all_optical_constants(n, a, f, t, p):
     # Produce a dictionary of all optical constants.
 
-    k = _extinction_coefficient(a, f)
-    n_complex = _n_complex(n, a, f)
+    # convert units to SI
+    # define new parameters so that output parameters would not be affected    
+    f_hz = f*1e12 
+    a_m = a*100
+    
+    k = _extinction_coefficient(a_m, f_hz) 
+    n_complex = _n_complex(n, a_m, f_hz)
     e_complex = _dielectric_constant(n_complex)
 
     optical_constants = {"frequency": f,
