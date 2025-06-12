@@ -248,8 +248,8 @@ def binary_mixture(sample_thickness, reference_thickness,
     # Prepare optical constant values for returning.
     n_sam = _invert_dielectric_constant(e_sam)
     n = np.real(n_sam)
-    a = _absorption_coefficient(-np.imag(n_sam), freqs*1e12)
-
+    a = _absorption_coefficient(np.imag(n_sam), freqs*1e12)
+    
     # Return optical constants.
     if all_optical_constants:
         return _all_optical_constants(n, a, freqs, amp, phase)
