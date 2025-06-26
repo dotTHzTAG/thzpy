@@ -38,7 +38,7 @@ with DotthzFile(path, 'r') as file:
     baseline = np.array(measurement.datasets["Baseline"])
 
     # Get the thickness metadata.
-    metadata = measurement.meta_data
+    metadata = measurement.metadata
     sample_thickness = metadata["Sample Thickness (mm)"]
     reference_thickness = metadata["Reference Thickness (mm)"]
 
