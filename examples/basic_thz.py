@@ -1,7 +1,7 @@
 """
 An example of data processing using data loaded from a .thz file.
 
-Demonstrates how to load a file and get measurment data and metadata
+Demonstrates how to load a file and get measurement data and metadata
 from it, how to apply a window function to a group of datasets,
 and how to calculate optical constants using two (sample and reference)
 or three (sample, reference, and baseline) datasets.
@@ -17,6 +17,7 @@ from thzpy.transferfunctions import (uniform_slab,
 from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
+from thzpy import dotthz
 
 #############
 # Load Data #
