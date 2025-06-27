@@ -10,14 +10,13 @@ Data acquired on a Menlo TeraSmart by the Terahertz Applications Group
 at Cambridge University.
 """
 
-from thzpy.dotthz import DotthzFile
+from thzpy.pydotthz import DotthzFile
 from thzpy.timedomain import common_window
 from thzpy.transferfunctions import (uniform_slab,
                                      binary_mixture)
 from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
-from thzpy import dotthz
 
 #############
 # Load Data #
@@ -29,15 +28,17 @@ path = root.joinpath("example_data", "Lactose.thz")  # OS-independent joining
 with DotthzFile(path, 'r') as file:
     # Get the first measurement in the file.
     names = file.get_measurement_names()
-    measurement = file.get_measurement(names[0])
+    measurement = file[names[0]]
 
     # Extract the sample and reference datasets.
-    sample = measurement.datasets["Sample"]
-    reference = measurement.datasets["Reference"]
-    baseline = measurement.datasets["Baseline"]
+    # if the computation is outside of the file context, we need to copy the data using `np.array()` otherwise the pointer only
+    # lives as long as the file is opened (only inside this context here)
+    sample = np.array(measurement.datasets["Sample"])
+    reference = np.array(measurement.datasets["Reference"])
+    baseline = np.array(measurement.datasets["Baseline"])
 
     # Get the thickness metadata.
-    metadata = measurement.meta_data.md
+    metadata = measurement.metadata
     sample_thickness = metadata["Sample Thickness (mm)"]
     reference_thickness = metadata["Reference Thickness (mm)"]
 
