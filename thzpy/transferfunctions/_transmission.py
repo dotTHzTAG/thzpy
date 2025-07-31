@@ -10,7 +10,7 @@ def _uniform_slab(amp, phase, freqs, thickness, n_med=1.,):
     n = (299792458*phase)/(2*np.pi*freqs*thickness) + n_med
     a = (2/thickness)*np.log((4*n*n_med)/(amp*((n_med + n)**2)))
 
-    return (n, a*1e-2)
+    return (n, a)
 
 
 def _binary_mixture(amp, phase, freqs, t_sam, t_ref,
@@ -25,4 +25,4 @@ def _binary_mixture(amp, phase, freqs, t_sam, t_ref,
     a = (a_ref*(t_ref/t_sam)
          + (2/t_sam)*np.log((n*((n_med+n_ref)**2))/(amp*n_ref*((n_med+n)**2))))
 
-    return (n, a*1e-2)
+    return (n, a)

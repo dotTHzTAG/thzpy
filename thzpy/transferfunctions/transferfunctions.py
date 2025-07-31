@@ -82,15 +82,18 @@ def uniform_slab(thickness, sample, baseline,
                                    fit_range=fit_range,
                                    min_frequency=min_frequency,
                                    max_frequency=max_frequency)
-
+    
+    freqs = freqs*1e12 # convert from THz to Hz
+    
     # Apply transfer function.
-    n, a = _uniform_slab(amp, phase, freqs*1e12, thickness, n_med)
+    n, a = _uniform_slab(amp, phase, freqs, thickness, n_med)
 
     # Return optical constants.
+    # Output are in conventional units e.g. absorption coefficients in cm-1, frequencies in THz
     if all_optical_constants:
         return _all_optical_constants(n, a, freqs, amp, phase)
     else:
-        return np.vstack([_n_complex(n, a, freqs), freqs])
+        return np.vstack([_n_complex(n, a, freqs), freqs*1e-12])
 
 
 def binary_mixture(sample_thickness, reference_thickness,
@@ -203,10 +206,13 @@ def binary_mixture(sample_thickness, reference_thickness,
                                                    min_frequency=min_frequency,
                                                    max_frequency=max_frequency)
 
+        freqs_mix = freqs_mix*1e12
+        freqs_ref = freqs_ref*1e12
+
         # Apply transfer function.
-        n, a = _uniform_slab(amp_mix, phase_mix, freqs_mix*1e12,
+        n, a = _uniform_slab(amp_mix, phase_mix, freqs_mix,
                              sample_thickness, n_med)
-        n_ref, a_ref = _uniform_slab(amp_ref, phase_ref, freqs_ref*1e12,
+        n_ref, a_ref = _uniform_slab(amp_ref, phase_ref, freqs_ref,
                                      reference_thickness, n_med)
 
         amp = amp_mix/amp_ref
@@ -215,6 +221,8 @@ def binary_mixture(sample_thickness, reference_thickness,
 
     else:
         # If no baseline is provided use approximation.
+        
+        a_ref = a_ref*1e2 # convert from cm-1 to m-1 
 
         # Transform to frequency domain.
         amp, phase, freqs = _transform(sample, reference,
@@ -223,15 +231,17 @@ def binary_mixture(sample_thickness, reference_thickness,
                                        fit_range=fit_range,
                                        min_frequency=min_frequency,
                                        max_frequency=max_frequency)
-
+        
+        freqs = freqs*1e12 # convert from THz to Hz
+        
         # Apply transfer function.
-        n, a = _binary_mixture(amp, phase, freqs*1e12,
+        n, a = _binary_mixture(amp, phase, freqs,
                                sample_thickness, reference_thickness,
                                n_med, n_ref, a_ref)
 
     # Convert to dielectric constant and apply effective medium theory.
-    e_mix = _dielectric_constant(_n_complex(n, a, freqs*1e12))
-    e_ref = _dielectric_constant(_n_complex(n_ref, a_ref, freqs*1e12))
+    e_mix = _dielectric_constant(_n_complex(n, a, freqs))
+    e_ref = _dielectric_constant(_n_complex(n_ref, a_ref, freqs))
 
     match effective_medium:
         case 'beer-lambert':
@@ -248,10 +258,10 @@ def binary_mixture(sample_thickness, reference_thickness,
     # Prepare optical constant values for returning.
     n_sam = _invert_dielectric_constant(e_sam)
     n = np.real(n_sam)
-    a = _absorption_coefficient(np.imag(n_sam), freqs*1e12)
+    a = _absorption_coefficient(np.imag(n_sam), freqs)
     
     # Return optical constants.
     if all_optical_constants:
         return _all_optical_constants(n, a, freqs, amp, phase)
     else:
-        return np.vstack([_n_complex(n, a, freqs), freqs])
+        return np.vstack([_n_complex(n, a, freqs), freqs*1e-12])
