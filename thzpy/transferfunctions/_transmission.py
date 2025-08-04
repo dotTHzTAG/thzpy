@@ -7,6 +7,9 @@ def _uniform_slab(amp, phase, freqs, thickness, n_med=1.,):
     # Calculates the complex refractive index for a homogenous slab.
     # TODO: Insert reference to Chi-Ki's paper.
 
+    # Ensure provided refractive indicex only uses the real component.
+    n_med = np.real(n_med)
+
     n = (299792458*phase)/(2*np.pi*freqs*thickness) + n_med
     a = (2/thickness)*np.log((4*n*n_med)/(amp*((n_med + n)**2)))
 
@@ -18,6 +21,10 @@ def _binary_mixture(amp, phase, freqs, t_sam, t_ref,
     # Calculates the complex refractive index for a slab
     # composed of two well mixed constituants.
     # TODO: Insert reference to Chi-Ki's paper.
+
+    # Ensure provided refractive indices only use the real component.
+    n_med = np.real(n_med)
+    n_ref = np.real(n_ref)
 
     n = ((299792458*phase)/(2*np.pi*freqs*t_sam)
          + (t_ref*(n_ref - n_med))/t_sam
