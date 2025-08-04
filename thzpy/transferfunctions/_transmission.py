@@ -7,7 +7,7 @@ def _uniform_slab(amp, phase, freqs, thickness, n_med=1.,):
     # Calculates the complex refractive index for a homogenous slab.
     # TODO: Insert reference to Chi-Ki's paper.
 
-    # Ensure provided refractive indicex only uses the real component.
+    # Ensure provided refractive index only uses the real component.
     n_med = np.real(n_med)
 
     n = (299792458*phase)/(2*np.pi*freqs*thickness) + n_med

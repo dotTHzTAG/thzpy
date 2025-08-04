@@ -9,7 +9,8 @@ import numpy as np
 
 def _n_complex(n, a, f):
     k = _extinction_coefficient(a, f)
-    return n + 1j*k 
+    return n + 1j*k
+
 
 def _extinction_coefficient(a, f):
     w = 2*np.pi*f
@@ -31,27 +32,29 @@ def _invert_dielectric_constant(e_complex):
 def _all_optical_constants(n, a, f, t, p):
     # Produce a dictionary of all optical constants.
     # Input arguments should all be in SI units
-    # Output arguments are in conventional units, e.g. absorption coefficients in cm-1, frequencies in THz
-    # Ouput arguments are also the output arguments of public functions
+    # Return values are in conventional units,
+    # e.g. absorption coefficients in cm-1, frequencies in THz.
 
-    k = _extinction_coefficient(a, f) 
+    k = _extinction_coefficient(a, f)
     n_complex = _n_complex(n, a, f)
     e_complex = _dielectric_constant(n_complex)
 
-    optical_constants = {"frequency": f*1e-12,
+    optical_constants = {"frequency": f*1e-12,  # units THz
                          "phase": p,
                          "transmission_amplitude": t,
                          "transmission_intensity": t**2,
-                         "absorption_coefficient": a*1e-2, # units cm-1
+                         "absorption_coefficient": a*1e-2,  # units cm-1
                          "extinction_coefficient": k,
                          "refractive_index": n_complex,
                          "dielectric_constant": e_complex}
 
     return optical_constants
 
+
 #########################
 # Effective medium theory
 #########################
+
 
 def _beer_lambert(e_eff, e_m, v_m, v_i):
     # Computes the dielectric spectrum of the unknown component

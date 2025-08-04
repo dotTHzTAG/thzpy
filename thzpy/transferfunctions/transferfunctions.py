@@ -82,12 +82,13 @@ def uniform_slab(thickness, sample, baseline,
                                    fit_range=fit_range,
                                    min_frequency=min_frequency,
                                    max_frequency=max_frequency)
-    
+
     # Apply transfer function.
     n, a = _uniform_slab(amp, phase, freqs, thickness, n_med)
 
     # Return optical constants.
-    # Output are in conventional units e.g. absorption coefficients in cm-1, frequencies in THz
+    # Output are in conventional units
+    # e.g. absorption coefficients in cm-1, frequencies in THz.
     if all_optical_constants:
         return _all_optical_constants(n, a, freqs, amp, phase)
     else:
@@ -219,8 +220,8 @@ def binary_mixture(sample_thickness, reference_thickness,
 
     else:
         # If no baseline is provided use approximation.
-        
-        a_ref = a_ref*1e2 # convert from cm-1 to m-1 
+
+        a_ref = a_ref*1e2   # convert from cm-1 to m-1
 
         # Transform to frequency domain.
         amp, phase, freqs = _transform(sample, reference,
@@ -229,7 +230,7 @@ def binary_mixture(sample_thickness, reference_thickness,
                                        fit_range=fit_range,
                                        min_frequency=min_frequency,
                                        max_frequency=max_frequency)
-        
+
         # Apply transfer function.
         n, a = _binary_mixture(amp, phase, freqs,
                                sample_thickness, reference_thickness,
@@ -255,7 +256,7 @@ def binary_mixture(sample_thickness, reference_thickness,
     n_sam = _invert_dielectric_constant(e_sam)
     n = np.real(n_sam)
     a = _absorption_coefficient(np.imag(n_sam), freqs)
-    
+
     # Return optical constants.
     if all_optical_constants:
         return _all_optical_constants(n, a, freqs, amp, phase)
