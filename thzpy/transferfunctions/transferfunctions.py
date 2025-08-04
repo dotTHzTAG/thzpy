@@ -83,8 +83,6 @@ def uniform_slab(thickness, sample, baseline,
                                    min_frequency=min_frequency,
                                    max_frequency=max_frequency)
     
-    freqs = freqs*1e12 # convert from THz to Hz
-    
     # Apply transfer function.
     n, a = _uniform_slab(amp, phase, freqs, thickness, n_med)
 
@@ -231,8 +229,6 @@ def binary_mixture(sample_thickness, reference_thickness,
                                        fit_range=fit_range,
                                        min_frequency=min_frequency,
                                        max_frequency=max_frequency)
-        
-        freqs = freqs*1e12 # convert from THz to Hz
         
         # Apply transfer function.
         n, a = _binary_mixture(amp, phase, freqs,
