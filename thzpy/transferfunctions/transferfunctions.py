@@ -205,9 +205,6 @@ def binary_mixture(sample_thickness, reference_thickness,
                                                    min_frequency=min_frequency,
                                                    max_frequency=max_frequency)
 
-        freqs_mix = freqs_mix*1e12
-        freqs_ref = freqs_ref*1e12
-
         # Apply transfer function.
         n, a = _uniform_slab(amp_mix, phase_mix, freqs_mix,
                              sample_thickness, n_med)
