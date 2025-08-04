@@ -33,7 +33,7 @@ def _transform(sample, reference,
     phase = phase[valid_indices]
     amplitude = amplitude[valid_indices]
 
-    return amplitude, phase, freqs
+    return amplitude, phase, freqs*1e12
 
 
 def _unwrap(sample_fd, reference_fd,

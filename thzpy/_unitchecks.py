@@ -1,5 +1,6 @@
 """Simple functions for checking and correcting units."""
 
+
 def _check_thickness(thickness, unit):
     # Checks that a length unit is valid and applies it to a value.
     unit = unit.lower()

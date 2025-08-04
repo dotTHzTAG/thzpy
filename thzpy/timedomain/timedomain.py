@@ -253,13 +253,12 @@ def common_window(waveforms, half_width, start=None, end=None,
 
     # Find the new half width required to fit all waveforms.
     max_delay = max(peak_times) - min(peak_times)
-    common_half_width = half_width - max_delay/2
 
     # Window waveforms
     # TODO: Remove call to public function.
     for waveform in waveforms:
         windowed_waveforms.append(window(waveform,
-                                         common_half_width,
+                                         half_width,
                                          start,
                                          end,
                                          win_func,

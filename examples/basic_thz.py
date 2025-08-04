@@ -10,7 +10,7 @@ Data acquired on a Menlo TeraSmart by the Terahertz Applications Group
 at Cambridge University.
 """
 
-from thzpy.pydotthz import DotthzFile
+from thzpy.dotthz import DotthzFile
 from thzpy.timedomain import common_window
 from thzpy.transferfunctions import (uniform_slab,
                                      binary_mixture)
@@ -31,8 +31,9 @@ with DotthzFile(path, 'r') as file:
     measurement = file[names[0]]
 
     # Extract the sample and reference datasets.
-    # if the computation is outside of the file context, we need to copy the data using `np.array()` otherwise the pointer only
-    # lives as long as the file is opened (only inside this context here)
+    # If the computation is outside of the file context, we need to copy the
+    # data using `np.array()` otherwise the pointer only lives as long as the
+    # file is opened (only inside this context here).
     sample = np.array(measurement.datasets["Sample"])
     reference = np.array(measurement.datasets["Reference"])
     baseline = np.array(measurement.datasets["Baseline"])
