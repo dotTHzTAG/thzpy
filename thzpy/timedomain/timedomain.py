@@ -1,4 +1,4 @@
-"""Implements public functions for time domain processing.
+"""Implements public functions for time-domain processing.
 
 Where user access to private functions is required they are
 exposed here via public functions.
@@ -138,7 +138,7 @@ def n_effective(sample, ref, thickness,
 
 
 def window(waveform, half_width, start=None, end=None,
-           win_func="hanning", time_unit="ps"):
+           win_func="hanning", alpha=None, time_unit="ps"):
     """Applies a window function to a waveform.
 
     Parameters
@@ -160,6 +160,8 @@ def window(waveform, half_width, start=None, end=None,
         the following asymmetric wavefunctions are implemented:
         adapted_blackman.
         Default is "hanning".
+    alpha : float, optional
+        An optional shape parameter required by some window functions.
     time_unit : str, optional
         The unit of the time values.
         Default is "ps".
@@ -193,6 +195,7 @@ def window(waveform, half_width, start=None, end=None,
                  + " functions. A default of 7ps will be used.")
         field = _adapted_blackman_window(field, time, peak_index,
                                          2*n, start, end)
+
     else:
         field = _symmetric_window(field, peak_index, 2*n, win_func=win_func)
 
@@ -203,7 +206,7 @@ def window(waveform, half_width, start=None, end=None,
 
 
 def common_window(waveforms, half_width, start=None, end=None,
-                  win_func="hanning", time_unit="ps"):
+                  win_func="hanning", alpha=None, time_unit="ps"):
     """Applies the same window function to a set of waveforms.
     Padding is automatically applied to preserve the phase shift
     between waveforms and waveforms are re-interpolated on to a
@@ -228,6 +231,8 @@ def common_window(waveforms, half_width, start=None, end=None,
         the following asymmetric wavefunctions are implemented:
         adapted_blackman.
         Default is "hanning".
+    alpha : float, optional
+        An optional shape parameter required by some window functions.
     time_unit : str, optional
         The unit of the time values.
         Default is "ps".
@@ -262,6 +267,7 @@ def common_window(waveforms, half_width, start=None, end=None,
                                          start,
                                          end,
                                          win_func,
+                                         alpha,
                                          time_unit))
 
     # Get sample waveform index.
