@@ -156,7 +156,7 @@ def window(waveform, half_width, start=None, end=None,
     win_func : str, optional
         The window function to be applied.
         The following symmetric wavefunctions are implemented:
-        boxcar, bartlett, blackman, hamming, hanning.
+        boxcar, bartlett, blackman, hamming, hanning, tukey.
         the following asymmetric wavefunctions are implemented:
         adapted_blackman.
         Default is "hanning".
@@ -227,7 +227,7 @@ def common_window(waveforms, half_width, start=None, end=None,
     win_func : str, optional
         The window function to be applied.
         The following wavefunctions are implemented:
-        boxcar, bartlett, blackman, hamming, hanning.
+        boxcar, bartlett, blackman, hamming, hanning, tukey.
         the following asymmetric wavefunctions are implemented:
         adapted_blackman.
         Default is "hanning".
