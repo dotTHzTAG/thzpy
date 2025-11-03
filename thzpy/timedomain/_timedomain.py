@@ -67,7 +67,7 @@ def _primary_peak(waveform):
     return (peak_time, peak_value, peak_index)
 
 
-def _symmetric_window(ds, centre, n, win_func):
+def _symmetric_window(ds, centre, n, win_func, alpha=None):
     """Apply a windowing function to a dataset.
 
     Parameters
@@ -80,6 +80,8 @@ def _symmetric_window(ds, centre, n, win_func):
         The size of the window
     win_func : str
         The window function to use
+    alpha : float, optional
+        An optional shape parameter required by some window functions.
 
     Returns
     -------
@@ -102,6 +104,8 @@ def _symmetric_window(ds, centre, n, win_func):
             window = np.hamming(n)
         case "hanning":
             window = np.hanning(n)
+        case "tukey":
+            window = _tukey(n, alpha)
         case _:
             raise ValueError(f"Invalid window function: {win_func}")
 
@@ -198,3 +202,28 @@ def _adapted_blackman_window(ds, time, centre, n, start, end):
         return window * windowed_ds
     else:
         raise ValueError("Time array length must match dataset length")
+
+
+def _tukey(n, alpha):
+    # Tukey window, effectively the convolution of a hann window with
+    # a rectangular window.
+
+    # Extreme alpha values.
+    if alpha <= 0:
+        return np.ones(n)
+    elif alpha >= 1:
+        return np.hanning(n)
+
+    # Normal alpha values.
+    x = np.linspace(0, 1, n)
+    window = np.ones(x.shape)
+
+    # Left cosine region.
+    left = np.where(x < alpha/2)
+    window[left] = 0.5 * (1 + np.cos(2*np.pi/alpha * (x[left] - alpha/2)))
+
+    # Right cosine region
+    right = np.where(x >= (1 - alpha/2))
+    window[right] = 0.5*(1 + np.cos(2*np.pi/alpha * (x[right] - 1 + alpha/2)))
+
+    return window
