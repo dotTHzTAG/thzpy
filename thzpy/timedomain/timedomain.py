@@ -197,7 +197,7 @@ def window(waveform, half_width, start=None, end=None,
                                          2*n, start, end)
 
     else:
-        field = _symmetric_window(field, peak_index, 2*n, win_func=win_func)
+        field = _symmetric_window(field, peak_index, 2*n, win_func=win_func, alpha=alpha)
 
     # Regularise the time axis.
     time = dt*np.arange(-n, n) + time[peak_index]
