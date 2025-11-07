@@ -64,7 +64,7 @@ def find_dynamic_range(baseline, frequencies,
     """
 
     # Convert thickness to cm
-    if thickness:
+    if thickness is not None:
         thickness = _check_thickness(thickness, thickness_unit)*100
 
     amaxd = _amaxd(baseline, np.real(refractive_index), frequencies, snr)
